@@ -2,6 +2,10 @@
 
 Sistema web interno desenvolvido para apoiar a gestão de ponto do Bar Líder, integrando dados do Secullum Ponto Web e centralizando marcações, atrasos, horas extras, adicional noturno, justificativas, cartão-ponto e fechamento mensal.
 
+**Aplicação em produção:** https://ponto-lider.vercel.app
+
+> O ambiente publicado é de uso interno e exige autenticação. O repositório contém apenas código e exemplos sanitizados para portfólio; dados e credenciais reais não são versionados.
+
 ## Objetivo
 
 O projeto nasceu de uma necessidade real de operação: consultar e organizar as marcações já registradas no relógio de ponto e sincronizadas com o Secullum, reduzindo trabalho manual e melhorando a conferência mensal.
@@ -46,9 +50,9 @@ A versão endurecida foi validada com:
 - ESLint nos arquivos alterados
 - build de produção concluído
 
-## Estrutura
+## Estrutura de portfólio
 
-O repositório apresenta a arquitetura e os principais componentes técnicos do Ponto Líder. Dados operacionais e segredos do restaurante ficam fora do versionamento por design.
+O repositório apresenta os principais componentes técnicos do Ponto Líder, incluindo autenticação/autorização, criptografia de credenciais, hardening HTTP, segurança de exportações, configuração do Supabase e testes automatizados. Dados operacionais e segredos do restaurante ficam fora do versionamento por design.
 
 ## Status
 
