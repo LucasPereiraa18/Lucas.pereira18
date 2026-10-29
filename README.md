@@ -1,63 +1,80 @@
-# Ponto Líder
+# Ponto Líder v2
 
-Sistema web interno desenvolvido para apoiar a gestão de ponto do Bar Líder, integrando dados do Secullum Ponto Web e centralizando marcações, atrasos, horas extras, adicional noturno, justificativas, cartão-ponto e fechamento mensal.
+Aplicação interna do **Bar Líder** para gestão e conferência de ponto integrada ao **Secullum Ponto Web**, agora com o módulo **Líder Pulse** de bonificação e gamificação.
 
-**Aplicação em produção:** https://ponto-lider.vercel.app
+## Ponto e jornada
 
-> O ambiente publicado é de uso interno e exige autenticação. O repositório contém apenas código e exemplos sanitizados para portfólio; dados e credenciais reais não são versionados.
+- Painel e indicadores do mês
+- Marcações por colaborador
+- Funcionários ativos/inativos
+- Cartão-ponto
+- Justificativas e pendências
+- Fechamento mensal
+- Atrasos, horas extras e adicional noturno
+- Exportação CSV
+- Integração Secullum somente leitura
 
-## Objetivo
+## Líder Pulse — v2
 
-O projeto nasceu de uma necessidade real de operação: consultar e organizar as marcações já registradas no relógio de ponto e sincronizadas com o Secullum, reduzindo trabalho manual e melhorando a conferência mensal.
+- Ranking mensal
+- Vida / assiduidade
+- Pontualidade baseada nas batidas do Secullum
+- Execução de tarefas e checklists
+- Nota coletiva
+- Bonificação financeira
+- XP e níveis
+- Moedas
+- Conquistas
+- Loja de recompensas
+- Histórico de ciclos
+- Configuração centralizada das regras
+- Proteção contra duplicidade de XP por idempotência
+
+O módulo de bonificação é separado da folha de pagamento e utiliza os dados do ponto como uma das fontes de medição.
 
 ## Stack
 
-- Next.js 16 + React 19 + TypeScript
-- Supabase Auth + PostgreSQL
-- Integração server-side com Secullum Ponto Web
-- Vitest para testes unitários e de integração
-- Vercel para deploy
-
-## Principais recursos
-
-- Autenticação administrativa
-- Dashboard de ponto
-- Consulta de marcações por mês
-- Funcionários ativos
-- Cartão-ponto
-- Justificativas e rótulos manuais
-- Fechamento mensal
-- Cálculo de atrasos, horas extras e adicional noturno
-- Exportação CSV protegida contra formula injection
-- Logs de sincronização e auditoria
-- Configuração centralizada da integração Secullum
+- Next.js 16 / React 19 / TypeScript
+- Supabase Auth + PostgreSQL + RLS
+- Secullum Ponto Web
+- Vitest e Playwright
+- Vercel
 
 ## Segurança
 
-A versão de portfólio não contém credenciais, senhas, CPFs reais, IDs internos do banco Secullum ou chaves privadas. O projeto usa RLS no Supabase, privilégios reduzidos por tabela, credenciais de integração criptografadas no servidor, autenticação por perfil e headers HTTP de hardening.
+- RLS no Supabase
+- Perfis `admin` e `gestor`
+- Credenciais do Secullum cifradas no servidor com AES-256-GCM
+- CSP, HSTS, `X-Frame-Options: DENY` e `nosniff`
+- Segredos fora do repositório
+- CSV protegido contra formula injection
+- Repositório público sanitizado, sem CPFs, senhas ou IDs internos reais
 
-Também foram adicionados CSP, HSTS, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, respostas de erro sem detalhes internos e proteção de CSV contra formula injection.
+## Ambiente
 
-Consulte [SECURITY.md](SECURITY.md) para os detalhes.
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://<SEU_PROJECT_REF>.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<SUA_CHAVE_PUBLICA>
+SECULLUM_ENCRYPTION_KEY=<CHAVE_AES_256_BASE64>
+```
+
+## Banco
+
+As migrations estão em `supabase/migrations/`, incluindo a migration do módulo de gamificação da v2.
 
 ## Qualidade
 
-A versão endurecida foi validada com:
+```bash
+npm install
+npm test
+npm run typecheck
+npm run build
+```
 
-- 12 arquivos de teste
-- 40 testes aprovados
-- TypeScript sem erros
-- ESLint nos arquivos alterados
-- build de produção concluído
+## Produção
 
-## Estrutura de portfólio
-
-O repositório apresenta os principais componentes técnicos do Ponto Líder, incluindo autenticação/autorização, criptografia de credenciais, hardening HTTP, segurança de exportações, configuração do Supabase e testes automatizados. Dados operacionais e segredos do restaurante ficam fora do versionamento por design.
-
-## Status
-
-Projeto em uso interno e evolução contínua.
+A aplicação é usada internamente pelo Bar Líder. Dados operacionais e credenciais reais não são versionados.
 
 ---
 
-Desenvolvido por Lucas Pereira como projeto aplicado de desenvolvimento web, integração de API, banco de dados e segurança de aplicações.
+Desenvolvido por Lucas Pereira como projeto aplicado de desenvolvimento web, integração de API, banco de dados, regras de negócio e segurança de aplicações.
