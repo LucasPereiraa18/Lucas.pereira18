@@ -1,12 +1,7 @@
-node_modules/
-.next/
-out/
 .env
 .env.*
 !.env.example
-*.log
-coverage/
-playwright-report/
-test-results/
+node_modules/
+dist/
 .vercel/
 .DS_Store

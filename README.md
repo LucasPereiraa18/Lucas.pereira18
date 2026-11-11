@@ -1,63 +1,38 @@
-# Ponto Líder
+# Lucas Pereira — Portfólio
 
-Sistema web interno desenvolvido para apoiar a gestão de ponto do Bar Líder, integrando dados do Secullum Ponto Web e centralizando marcações, atrasos, horas extras, adicional noturno, justificativas, cartão-ponto e fechamento mensal.
+Este branch contém **o código-fonte completo** do portfólio de Lucas Pereira, correspondente à implantação de produção de 10/11/2026 no Vercel.
 
-**Aplicação em produção:** https://ponto-lider.vercel.app
+**Site publicado:** https://lucas-pereira-portfolio-lucaswessnerr-3357.vercel.app
 
-> O ambiente publicado é de uso interno e exige autenticação. O repositório contém apenas código e exemplos sanitizados para portfólio; dados e credenciais reais não são versionados.
+## Conteúdo
 
-## Objetivo
+- `index.html`: estrutura do site, conteúdo profissional e apresentação de seis projetos reais.
+- `styles.css`: estilos responsivos e identidade visual.
+- `app.js`: filtros e interações da seção de projetos.
+- `favicon.svg`: identidade visual da aba do navegador.
+- `vercel.json`: configuração de cabeçalhos de segurança e publicação.
 
-O projeto nasceu de uma necessidade real de operação: consultar e organizar as marcações já registradas no relógio de ponto e sincronizadas com o Secullum, reduzindo trabalho manual e melhorando a conferência mensal.
+O portfólio apresenta experiências em sistemas de gestão, integração, estoque e projetos acadêmicos. Aplicações de uso interno não têm seu código ou credenciais incluídos neste branch.
 
-## Stack
+## Usar no Claude
 
-- Next.js 16 + React 19 + TypeScript
-- Supabase Auth + PostgreSQL
-- Integração server-side com Secullum Ponto Web
-- Vitest para testes unitários e de integração
-- Vercel para deploy
+1. Abra este branch `portfolio-site` no GitHub ou faça o clone:
 
-## Principais recursos
+   ```bash
+   git clone --branch portfolio-site --single-branch https://github.com/LucasPereiraa18/Lucas.pereira18.git portfolio-lucas
+   ```
 
-- Autenticação administrativa
-- Dashboard de ponto
-- Consulta de marcações por mês
-- Funcionários ativos
-- Cartão-ponto
-- Justificativas e rótulos manuais
-- Fechamento mensal
-- Cálculo de atrasos, horas extras e adicional noturno
-- Exportação CSV protegida contra formula injection
-- Logs de sincronização e auditoria
-- Configuração centralizada da integração Secullum
+2. Abra a pasta `portfolio-lucas` no Claude Code ou faça o upload dos cinco arquivos.
+3. Peça as alterações desejadas. É uma aplicação estática, sem instalação de pacotes: basta abrir `index.html` localmente ou servir a pasta via servidor estático.
 
-## Segurança
+## Atualizações e publicação
 
-A versão de portfólio não contém credenciais, senhas, CPFs reais, IDs internos do banco Secullum ou chaves privadas. O projeto usa RLS no Supabase, privilégios reduzidos por tabela, credenciais de integração criptografadas no servidor, autenticação por perfil e headers HTTP de hardening.
+O Vercel foi publicado inicialmente por API, sem vínculo Git obrigatório. **Commits neste branch não atualizam automaticamente o site em produção.** Configure a integração Git do projeto Vercel ou publique os arquivos alterados manualmente.
 
-Também foram adicionados CSP, HSTS, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, respostas de erro sem detalhes internos e proteção de CSV contra formula injection.
+## Organização
 
-Consulte [SECURITY.md](SECURITY.md) para os detalhes.
-
-## Qualidade
-
-A versão endurecida foi validada com:
-
-- 12 arquivos de teste
-- 40 testes aprovados
-- TypeScript sem erros
-- ESLint nos arquivos alterados
-- build de produção concluído
-
-## Estrutura de portfólio
-
-O repositório apresenta os principais componentes técnicos do Ponto Líder, incluindo autenticação/autorização, criptografia de credenciais, hardening HTTP, segurança de exportações, configuração do Supabase e testes automatizados. Dados operacionais e segredos do restaurante ficam fora do versionamento por design.
-
-## Status
-
-Projeto em uso interno e evolução contínua.
+A branch principal `main` deste repositório contém outro projeto (Ponto Líder) e foi preservada. Este branch é dedicado exclusivamente ao portfólio para não misturar os arquivos da aplicação interna.
 
 ---
 
-Desenvolvido por Lucas Pereira como projeto aplicado de desenvolvimento web, integração de API, banco de dados e segurança de aplicações.
+Portfólio de Lucas Pereira · 2026
