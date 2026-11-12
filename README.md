@@ -1,63 +1,60 @@
-# Ponto Líder
+# Ponto Líder v2 — Líder Pulse
 
-Sistema web interno desenvolvido para apoiar a gestão de ponto do Bar Líder, integrando dados do Secullum Ponto Web e centralizando marcações, atrasos, horas extras, adicional noturno, justificativas, cartão-ponto e fechamento mensal.
+Sistema interno do Bar Líder, desenvolvido em Next.js, React e TypeScript, para acompanhar ponto de funcionários (integração Secullum **somente leitura**) e indicadores de reconhecimento do módulo Líder Pulse.
 
-**Aplicação em produção:** https://ponto-lider.vercel.app
+## Funcionalidades
 
-> O ambiente publicado é de uso interno e exige autenticação. O repositório contém apenas código e exemplos sanitizados para portfólio; dados e credenciais reais não são versionados.
+- Painel, marcações, cartão-ponto, funcionários, justificativas, fechamento e exportação.
+- Líder Pulse: Vida/assiduidade, pontualidade, execução, nota coletiva, bônus, ranking, XP, níveis, moedas, conquistas e loja.
+- API Secullum apenas para consulta; nenhuma marcação é gravada no sistema do fornecedor.
 
-## Objetivo
+## Situação desta branch
 
-O projeto nasceu de uma necessidade real de operação: consultar e organizar as marcações já registradas no relógio de ponto e sincronizadas com o Secullum, reduzindo trabalho manual e melhorando a conferência mensal.
+**Versão de migração em andamento, não é uma release de produção.** A versão publicada no domínio do Ponto Líder ainda utiliza o backend antigo; esta branch contém a adaptação para Neon e deve ser validada em preview antes de qualquer troca de ambiente.
+
+- Novo banco Neon PostgreSQL: estrutura criada; veja `NEON-MIGRACAO.md`.
+- Neon Auth e Neon Data API: ativados, novo perfil administrativo inicial cadastrado.
+- Senha nova do administrador: **não definida**; falta confirmação por e-mail e teste do login.
+- Os dados antigos do Supabase pausado **não foram migrados**.
+- O conteúdo da pasta `neon/migrations/` é referência de migração; **não reaplique cegamente** no banco inicializado.
+- Necessário instalar dependências, executar testes, corrigir eventuais incompatibilidades de SDK e realizar deploy de preview.
 
 ## Stack
 
-- Next.js 16 + React 19 + TypeScript
-- Supabase Auth + PostgreSQL
-- Integração server-side com Secullum Ponto Web
-- Vitest para testes unitários e de integração
-- Vercel para deploy
+- Next.js 16 + React 19 + TypeScript.
+- PostgreSQL no Neon, Managed Better Auth e Data API, acesso aos dados com RLS.
+- Vitest e Playwright.
+- Vercel para deploy.
 
-## Principais recursos
+## Desenvolvimento local
 
-- Autenticação administrativa
-- Dashboard de ponto
-- Consulta de marcações por mês
-- Funcionários ativos
-- Cartão-ponto
-- Justificativas e rótulos manuais
-- Fechamento mensal
-- Cálculo de atrasos, horas extras e adicional noturno
-- Exportação CSV protegida contra formula injection
-- Logs de sincronização e auditoria
-- Configuração centralizada da integração Secullum
+Requer Node.js >= 22.13.0.
+
+```bash
+npm install
+cp .env.example .env.local
+npm run typecheck
+npm test
+npm run build
+npm run dev
+```
+
+Preencha as variáveis no ambiente local ou Vercel, **nunca no GitHub**:
+
+- `NEON_AUTH_BASE_URL`
+- `NEON_AUTH_COOKIE_SECRET` (segredo aleatório, >= 32 caracteres)
+- `NEON_DATA_API_URL`
+- `SECULLUM_ENCRYPTION_KEY` (somente servidor, manter valor se importar dados cifrados)
+
+Configurar usuário e senha da Secullum pela interface autenticada, nunca em arquivos versionados.
 
 ## Segurança
 
-A versão de portfólio não contém credenciais, senhas, CPFs reais, IDs internos do banco Secullum ou chaves privadas. O projeto usa RLS no Supabase, privilégios reduzidos por tabela, credenciais de integração criptografadas no servidor, autenticação por perfil e headers HTTP de hardening.
+Não publique credenciais, chaves, dados de colaboradores ou arquivos `.env`. O acesso administrativo deve ser permitido somente a usuários com perfil ativo e papel autorizado. Teste a proteção de rotas e de RLS antes de publicar. Recomenda-se usar um repositório **privado** para produção e uso corporativo.
 
-Também foram adicionados CSP, HSTS, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, respostas de erro sem detalhes internos e proteção de CSV contra formula injection.
+## Documentação
 
-Consulte [SECURITY.md](SECURITY.md) para os detalhes.
-
-## Qualidade
-
-A versão endurecida foi validada com:
-
-- 12 arquivos de teste
-- 40 testes aprovados
-- TypeScript sem erros
-- ESLint nos arquivos alterados
-- build de produção concluído
-
-## Estrutura de portfólio
-
-O repositório apresenta os principais componentes técnicos do Ponto Líder, incluindo autenticação/autorização, criptografia de credenciais, hardening HTTP, segurança de exportações, configuração do Supabase e testes automatizados. Dados operacionais e segredos do restaurante ficam fora do versionamento por design.
-
-## Status
-
-Projeto em uso interno e evolução contínua.
-
----
-
-Desenvolvido por Lucas Pereira como projeto aplicado de desenvolvimento web, integração de API, banco de dados e segurança de aplicações.
+- [Guia de migração para o Neon](NEON-MIGRACAO.md)
+- [Contexto para Claude ou outros agentes](CLAUDE.md)
+- [Informações da v2](RELEASE-V2.md)
+- [Documentação operacional](docs/OPERACAO.md)

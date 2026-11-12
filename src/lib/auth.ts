@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import type { AppUser, UserRole } from "@/src/domain/auth/types";
 import { getProfile } from "@/src/repositories/profile-repository";
-import { createClient } from "@/src/lib/supabase/server";
+import { auth } from "@/src/lib/neon/auth-server";
 
 export class AuthorizationError extends Error {
   constructor(public readonly code: "UNAUTHENTICATED" | "FORBIDDEN") {
@@ -16,17 +16,16 @@ export function assertRole(user: AppUser | null, roles: readonly UserRole[]): Ap
 }
 
 export async function getCurrentUser(): Promise<AppUser | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.getClaims();
-  const userId = typeof data?.claims?.sub === "string" ? data.claims.sub : null;
-  if (error || !userId) return null;
-  const profile = await getProfile(userId);
+  // Do not trust user IDs originating from request params, cookies or form data.
+  const { data: session, error } = await auth.getSession();
+  if (error || !session?.user?.id) return null;
+  const profile = await getProfile(session.user.id);
   return profile?.active ? profile : null;
 }
 
 export async function requireUser(): Promise<AppUser> {
   const user = await getCurrentUser();
-  if (!user) redirect("/login");
+  if (!user) redirect("/auth/sign-in");
   return user;
 }
 
