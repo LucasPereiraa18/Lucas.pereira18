@@ -13,10 +13,11 @@ export default async function ConfigPage({ searchParams }: { searchParams: Promi
     <div className="page">
       <header className="page-header"><div><span className="eyebrow">Administração</span><h1>Configurações</h1><p>Credenciais e regras locais usadas para consultar o Secullum.</p></div></header>
       {params.salvo ? <div className="alert success">Configuração salva.</div> : null}
+      {!config ? <div className="alert warning"><strong>Integração Secullum ainda não configurada no Neon.</strong> Informe novamente o usuário e a senha usados na integração do Secullum, salve e clique em Testar conexão. O modo continuará somente leitura.</div> : null}
       <form action={saveConfigAction} className="panel form-grid">
         <div className="section-title span-2"><h2>Integração Secullum</h2><p>A senha fica cifrada e nunca é devolvida a esta tela.</p></div>
         <label className="field"><span>Usuário Secullum</span><input name="username" defaultValue={config?.username ?? ""} required /></label>
-        <label className="field"><span>ID do banco selecionado</span><input name="databaseId" defaultValue={config?.databaseId ?? ""} required /></label>
+        <label className="field"><span>ID do banco selecionado</span><input name="databaseId" defaultValue={config?.databaseId ?? "131887"} required /></label>
         <label className="field"><span>Senha {config?.hasPassword ? "(deixe em branco para manter)" : ""}</span><input type="password" name="password" required={!config?.hasPassword} autoComplete="new-password" /></label>
         <label className="field"><span>Modo</span><input value="Somente leitura" disabled /></label>
         <div className="section-title span-2"><h2>Jornada de fallback</h2><p>Usada somente quando não houver memória diária nem horário frequente do colaborador.</p></div>
