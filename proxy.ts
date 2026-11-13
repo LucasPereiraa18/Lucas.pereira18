@@ -4,7 +4,6 @@ import { auth } from "@/src/lib/neon/auth-server";
 // still perform server-side role checks (middleware alone is not authorization).
 export default auth.middleware({
   loginUrl: "/auth/sign-in",
-  publicRoutes: ["/login", "/api/version"],
 });
 
 export const config = {
